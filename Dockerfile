@@ -3,6 +3,8 @@
 ################
 FROM python:2-slim
 
+COPY requirements.txt requirements.txt
+
 RUN apt-get update && \
   apt-get install -y build-essential \
     libmysqlclient-dev \
@@ -11,7 +13,7 @@ RUN apt-get update && \
     redis-tools \
     libxml2-dev \
     libxslt-dev \
-  && pip install --no-cache-dir pandas gunicorn eventlet gevent Fabric lxml urllib3 \
+  && pip install --no-cache-dir -r requirements.txt \
   && rm -rf $HOME/.cache \
   && apt-get purge -y python.* \
   && apt-get autoremove -y \
